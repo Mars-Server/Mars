@@ -1,0 +1,3 @@
+
+// AUTO-GENERATED. DO NOT EDIT.
+export const compiledServerYml = "# サーバーフォルダー設定\r\n# nullの時は、そのまま実行されたフォルダー内にサーバーがダウンロードされます\r\n# 例えば、serverFolder: test と入力されたときは、実行されたフォルダー内にtestフォルダーが作成され、その中にサーバーがダウンロードされます\r\n# serverFolder: test/test のようにすることで、ネストすることが出来ます。\r\nserver-folder: server\r\n\r\n# アドオン設定\r\n# auto-update: サーバー起動時にビヘイビアパック/リソースパックを自動で更新する\r\naddon:\r\n  auto-update:\r\n    behavior_packs: true\r\n    resource_packs: true\r\n\r\n# バックアップ設定\r\n# auto:\r\n#   interval: 許可された値: m,h,d,null\r\n#   stop: サーバー停止時または再起動時にバックアップ\r\n# max-count: バックアップの最大個数\r\nbackup:\r\n  auto:\r\n    interval: null\r\n    stop: false\r\n  max-count: 10\r\n"

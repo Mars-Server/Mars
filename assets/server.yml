@@ -1,0 +1,23 @@
+# サーバーフォルダー設定
+# nullの時は、そのまま実行されたフォルダー内にサーバーがダウンロードされます
+# 例えば、serverFolder: test と入力されたときは、実行されたフォルダー内にtestフォルダーが作成され、その中にサーバーがダウンロードされます
+# serverFolder: test/test のようにすることで、ネストすることが出来ます。
+server-folder: server
+
+# アドオン設定
+# auto-update: サーバー起動時にビヘイビアパック/リソースパックを自動で更新する
+addon:
+  auto-update:
+    behavior_packs: true
+    resource_packs: true
+
+# バックアップ設定
+# auto:
+#   interval: 許可された値: m,h,d,null
+#   stop: サーバー停止時または再起動時にバックアップ
+# max-count: バックアップの最大個数
+backup:
+  auto:
+    interval: null
+    stop: false
+  max-count: 10
