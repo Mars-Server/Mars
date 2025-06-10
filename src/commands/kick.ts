@@ -3,7 +3,7 @@ import Log from "../modules/Log";
 
 export default function kick(contents: any, consoleCommand: boolean) {
     if (!contents) {
-        Log.error("Usage: kick <PlayerName: string> <reason: string>");
+        Log.error("Usage: kick <playerName: string> <reason: string>");
         return;
     }
 
@@ -18,7 +18,7 @@ export default function kick(contents: any, consoleCommand: boolean) {
         playerName.trim() === "" ||
         reason.trim() === ""
     ) {
-        Log.error("Usage: kick <PlayerName: string> <reason: string>");
+        Log.error("Usage: kick <playerName: string> <reason: string>");
         return true;
     }
 

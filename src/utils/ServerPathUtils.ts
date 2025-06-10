@@ -13,11 +13,17 @@ export default class ServerPathUtils {
         return datas;
     }
 
-    static getServerExecutablePath(): string {
+    static getServerExecutable(): string {
         const platform = os.platform();
-        const serverFolderPath = this.getServerFolderPath() || "./";
 
-        return path.join(serverFolderPath, platform === "win32" ? "bedrock_server.exe" : "bedrock_server");
+        return platform === "win32" ? "./bedrock_server.exe" : "./bedrock_server";
+    }
+
+    static getServerExecutablePath(): string {
+        const serverFolderPath = this.getServerFolderPath() || "./";
+        const executablePath = path.join(serverFolderPath, this.getServerExecutable());
+
+        return executablePath;
     }
 
     static existsExecutable(): boolean {
@@ -30,5 +36,10 @@ export default class ServerPathUtils {
 
     static chmod(path: string) {
         fs.chmodSync(path, 0o755);
+    }
+
+    static isPermission(path: string) {
+        const stat = fs.statSync(path);
+        return (stat.mode & 0o111) !== 0;
     }
 }

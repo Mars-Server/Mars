@@ -3,7 +3,7 @@ import Log from "../modules/Log";
 
 export default function transfer(contents: any, consoleCommand: boolean) {
     if (!contents) {
-        Log.error("Usage: transfer <PlayerName: string> <host: string> <port: number>");
+        Log.error("Usage: transfer <playerName: string> <host: string> <port: number>");
         return;
     }
 
@@ -21,7 +21,7 @@ export default function transfer(contents: any, consoleCommand: boolean) {
         port.toString().trim() === "" ||
         Number.isNaN(Number(port))
     ) {
-        Log.error("Usage: transfer <PlayerName: string> <host: string> <port: number>");
+        Log.error("Usage: transfer <playerName: string> <host: string> <port: number>");
         return true;
     }
 

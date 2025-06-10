@@ -14,6 +14,7 @@ import YamlManager from "../modules/managers/YamlManager";
 import Command from "../modules/CommandCheck";
 import backup from "../commands/backup";
 import readline from "readline";
+import path from "path";
 
 export default class BedrockServer {
     public static serverProcess: ChildProcess | null;
@@ -45,7 +46,7 @@ export default class BedrockServer {
                         output: process.stdout
                     });
 
-                    rl.question("Enterキーを押すと終了します──\n", () => {
+                    rl.question("Enterキーを押すと終了します──", () => {
                         rl.close();
                         resolve();
                     });
@@ -70,14 +71,20 @@ export default class BedrockServer {
 
         if (os.platform() === "linux") {
             try {
-                ServerPathUtils.chmod(executablePath);
+                const isExecutable = ServerPathUtils.isPermission(executablePath);
+
+                if (!isExecutable) {
+                    ServerPathUtils.chmod(executablePath);
+                    Log.info("実行権限を与えました");
+                }
             } catch (e) {
-                Log.error("実行可能ファイルに権限を設定できませんでした");
+                Log.error("実行可能ファイルの権限確認または設定に失敗しました");
                 process.exit(0);
             }
         }
 
-        this.serverProcess = childProcess.spawn(ServerPathUtils.getServerExecutablePath(), [], {
+        this.serverProcess = childProcess.spawn(ServerPathUtils.getServerExecutable(), [], {
+            cwd: ServerPathUtils.getServerFolderPath(),
             stdio: ["pipe", "pipe", "pipe"]
         });
 
@@ -119,6 +126,12 @@ export default class BedrockServer {
                     }
 
                     line = line.replace("[Scripting]", "").trim();
+
+                    if (Command.isCommand(line)) {
+                        Command.run(line);
+                        return;
+                    }
+                    
                     Log[type](line);
                 }
             });
@@ -131,6 +144,7 @@ export default class BedrockServer {
 
         this.serverProcess.on("error", (error) => {
             Log.error(`サーバーの起動中にエラーが発生しました: ${error}`);
+            process.exit(0);
         });
     }
 

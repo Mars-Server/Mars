@@ -11,7 +11,7 @@ export class ServerPackManager {
     public static update(): void {
         try {
             const serverFolderPath = ServerPathUtils.getServerFolderPath() || "./bedrock_server";
-            const serverProperties = PropertyManager.load(path.join(serverFolderPath, "./server.properties"));
+            const serverProperties = PropertyManager.load(path.join(serverFolderPath, "server.properties"));
             const levelName = serverProperties["level-name"];
 
             const isBehaviorPacks = YamlManager.load(config.serverYmlPath, "addon/auto-update/behavior_packs")?.[0];

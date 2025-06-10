@@ -10,5 +10,6 @@ export const config = {
         "worlds"
     ],
     commandPrefix: "MARS:SCRIPT_COMMAND:",
-    serverYmlPath: "./server.yml"
+    serverYmlPath: "./server.yml",
+    version: [1, 0, 0]
 }

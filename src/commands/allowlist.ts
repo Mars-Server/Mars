@@ -13,7 +13,7 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
     }
 
     if (!contents) {
-        Log.error("Usage: allowlist <add | remove> <PlayerName: string> <igLimit: boolean>");
+        Log.error("Usage: allowlist <add | remove> <playerName: string> <igLimit: boolean>");
         return;
     }
 
@@ -27,7 +27,7 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
         typeof playerName !== "string" ||
         playerName.trim() === ""
     ) {
-        Log.error("Usage: allowlist <add | remove> <PlayerName: string> <igLimit: boolean>");
+        Log.error("Usage: allowlist <add | remove> <playerName: string> <igLimit: boolean>");
         return;
     }
 

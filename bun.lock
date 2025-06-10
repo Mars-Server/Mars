@@ -5,6 +5,7 @@
       "name": "mars",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.826.0",
+        "@minecraft/server": "^2.0.0-beta.1.21.84-stable",
         "archiver": "^7.0.1",
         "chalk": "^5.4.1",
         "js-yaml": "^4.1.0",
@@ -102,6 +103,12 @@
     "@aws-sdk/xml-builder": ["@aws-sdk/xml-builder@3.821.0", "", { "dependencies": { "@smithy/types": "^4.3.1", "tslib": "^2.6.2" } }, "sha512-DIIotRnefVL6DiaHtO6/21DhJ4JZnnIwdNbpwiAhdt/AVbttcE4yw925gsjur0OGv5BTYXQXU3YnANBYnZjuQA=="],
 
     "@isaacs/cliui": ["@isaacs/cliui@8.0.2", "", { "dependencies": { "string-width": "^5.1.2", "string-width-cjs": "npm:string-width@^4.2.0", "strip-ansi": "^7.0.1", "strip-ansi-cjs": "npm:strip-ansi@^6.0.1", "wrap-ansi": "^8.1.0", "wrap-ansi-cjs": "npm:wrap-ansi@^7.0.0" } }, "sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA=="],
+
+    "@minecraft/common": ["@minecraft/common@1.2.0", "", {}, "sha512-JdmEq4P3Z/FtoBzhLijFgMSVFnFRrUoLwY8DHHrgtFo0mfLTOLTB1RErYjLMsA6b7BGVNxkX/pfFRiH7QZ0XwQ=="],
+
+    "@minecraft/server": ["@minecraft/server@2.0.0-beta.1.21.84-stable", "", { "dependencies": { "@minecraft/common": "^1.1.0" }, "peerDependencies": { "@minecraft/vanilla-data": ">=1.20.70" } }, "sha512-v4EHs+SDyimXhI9eDgr/sUDFI54+d1j9WUoUXvvZ3JTEQhn9DLd1KywIQtJzzyOw2eaNO3nSV+oy13g8SkVqoA=="],
+
+    "@minecraft/vanilla-data": ["@minecraft/vanilla-data@1.21.81", "", {}, "sha512-YODTWnkEiFc9VjKOGOuLXZZQpkLQw9EIsxAoHtBT+K8huDv5nWLheX5hc1Z9OqY/+iFaIT7ueJNfBbXW/WOF1A=="],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
