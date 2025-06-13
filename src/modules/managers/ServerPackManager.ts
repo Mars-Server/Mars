@@ -10,7 +10,7 @@ import { config } from "../../config/config";
 export class ServerPackManager {
     public static update(): void {
         try {
-            const serverFolderPath = ServerPathUtils.getServerFolderPath() || "./bedrock_server";
+            const serverFolderPath = ServerPathUtils.getServerFolderPath();
             const serverProperties = PropertyManager.load(path.join(serverFolderPath, "server.properties"));
             const levelName = serverProperties["level-name"];
 
@@ -24,7 +24,9 @@ export class ServerPackManager {
             if (isResourcePacks) {
                 this.resource_update(serverFolderPath, levelName);
             }
-        } catch { }
+        } catch (e: any) {
+            Log.error(e.message);
+        }
     }
 
     private static behavior_update(serverFolderPath: string, levelName: string): void {

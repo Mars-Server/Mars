@@ -14,14 +14,14 @@ import YamlManager from "../modules/managers/YamlManager";
 import Command from "../modules/CommandCheck";
 import backup from "../commands/backup";
 import readline from "readline";
-import path from "path";
+import restart from "../commands/restart";
 
 export default class BedrockServer {
     public static serverProcess: ChildProcess | null;
     public static intervalId: NodeJS.Timeout;
 
     public static async init() {
-        const folderPath = ServerPathUtils.getServerFolderPath() || "./";
+        const folderPath = ServerPathUtils.getServerFolderPath();
 
         Log.info("初期化を開始します");
         await downloadServer(folderPath);
@@ -29,15 +29,12 @@ export default class BedrockServer {
     }
 
     public static async start() {
+        let isInit = false;
+
         if (!ServerPathUtils.existsServerYaml(config.serverYmlPath)) {
             FileManager.write(config.serverYmlPath, compiledServerYml);
             Log.info("server.ymlを生成しました");
             Log.info("サーバーを再度起動してください");
-
-            const rl = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout
-            });
 
             const waitForEnter = async (): Promise<void> => {
                 return new Promise((resolve) => {
@@ -59,9 +56,10 @@ export default class BedrockServer {
 
         if (!ServerPathUtils.existsExecutable()) {
             await this.init();
+            isInit = true;
         }
 
-        if (YamlManager.load(config.serverYmlPath, "addon/auto-update")?.[0]) {
+        if (!isInit) {
             ServerPackManager.update();
         }
 
@@ -113,11 +111,10 @@ export default class BedrockServer {
         // マイクラサーバーからのデータ
         this.serverProcess?.stdout?.on("data", (data) => {
             const lines = data.toString().split("\n");
+            let type: "info" | "warn" | "error" = "info";
 
             lines.forEach((line: string) => {
                 if (line.trim()) {
-                    let type: "info" | "warn" | "error" = "info";
-
                     if (line.includes("INFO")) type = "info";
                     if (line.includes("WARN")) type = "warn";
                     if (line.includes("ERROR")) type = "error";
@@ -127,11 +124,16 @@ export default class BedrockServer {
 
                     line = line.replace("[Scripting]", "").trim();
 
+                    if (isInit && line === "Server started.") {
+                        restart();
+                        return;
+                    }
+
                     if (Command.isCommand(line)) {
                         Command.run(line);
                         return;
                     }
-                    
+
                     Log[type](line);
                 }
             });

@@ -32,7 +32,7 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
     }
 
     try {
-        const serverFolderPath = ServerPathUtils.getServerFolderPath() || "./";
+        const serverFolderPath = ServerPathUtils.getServerFolderPath();
         const allowlistPath = FileManager.findPath(serverFolderPath, "allowlist.json");
 
         if (allowlistPath) {

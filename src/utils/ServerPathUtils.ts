@@ -6,10 +6,10 @@ import YamlManager from "../modules/managers/YamlManager";
 import { config } from "../config/config";
 
 export default class ServerPathUtils {
-    static getServerFolderPath(): string | undefined {
+    static getServerFolderPath(): string {
         const datas = YamlManager.load(config.serverYmlPath, "server-folder")?.[0];
 
-        if (!datas || datas[0] === null) return;
+        if (!datas || datas[0] === null) return "./";
         return datas;
     }
 
@@ -20,7 +20,7 @@ export default class ServerPathUtils {
     }
 
     static getServerExecutablePath(): string {
-        const serverFolderPath = this.getServerFolderPath() || "./";
+        const serverFolderPath = this.getServerFolderPath();
         const executablePath = path.join(serverFolderPath, this.getServerExecutable());
 
         return executablePath;

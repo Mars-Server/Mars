@@ -16,7 +16,7 @@ export default async function update() {
             .forEach(async line => {
                 if (line.trim() === "Quit correctly") {
                     BedrockServer.end();
-                    const folderPath = ServerPathUtils.getServerFolderPath() || "./";
+                    const folderPath = ServerPathUtils.getServerFolderPath();
                     Log.info("アップデートを開始します");
                     await downloadServer(folderPath);
                     Log.info("アップデートが完了しました");

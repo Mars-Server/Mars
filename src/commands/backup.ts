@@ -67,7 +67,7 @@ export default async function backup(): Promise<boolean> {
 }
 
 async function handleBackup(): Promise<boolean> {
-    const serverFolderPath = ServerPathUtils.getServerFolderPath() || "./";
+    const serverFolderPath = ServerPathUtils.getServerFolderPath();
     const serverProperties = PropertyManager.load(path.join(serverFolderPath, "server.properties"));
     const levelName = serverProperties["level-name"];
     const folderName = Time.getFormattedTimestamp("YYYY_MM_DD_hh_mm_ss_SSS");
