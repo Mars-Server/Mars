@@ -4,8 +4,6 @@
     "type": "module",
     "scripts": {
         "start": "bun run src/index.ts",
-        "_update": "bun run update-scripts/index.ts",
-        "build-update": "",
         "build-yml": "bun run scripts/compile-server-yml.ts",
         "build-windows": "bun build --compile --sourcemap --bytecode ./src/index.ts --target=bun-windows-x64 --outfile builds/Mars-windows --minify",
         "build-linux": "bun build --compile --sourcemap --bytecode ./src/index.ts --target=bun-linux-x64 --outfile builds/Mars-linux --minify",
