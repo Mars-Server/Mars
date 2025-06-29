@@ -5,10 +5,8 @@ import ServerPathUtils from "../utils/ServerPathUtils";
 import fs from "fs";
 
 export default function allowlist(contents: any, consoleCommand: boolean) {
-    if (consoleCommand) return;
-
     if (!BedrockServer.serverProcess) {
-        Log.error("サーバーが起動していない状態でバックアップできません");
+        Log.error("サーバーが起動していない状態でホワイトリストを追加できません");
         return;
     }
 
@@ -17,7 +15,11 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
         return;
     }
 
-    const { type, playerName, igLimit } = contents;
+    let { type, playerName, igLimit } = contents;
+
+    if (consoleCommand) {
+        [type, playerName, igLimit] = contents;
+    }
 
     if (
         !type ||
@@ -40,7 +42,10 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
 
             switch (type) {
                 case "add":
-                    if (allowlist.find(v => v.name === playerName)) return;
+                    if (allowlist.find(v => v.name === playerName)) {
+                        Log.error(`${playerName} はすでに追加されています`);
+                        return;
+                    }
 
                     allowlist.push({
                         ignoresPlayerLimit: igLimit,
@@ -51,7 +56,10 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
                     break;
 
                 case "remove":
-                    if (!allowlist.find(v => v.name === playerName)) return;
+                    if (!allowlist.find(v => v.name === playerName)) {
+                        Log.error(`${playerName} はすでに追加されています`);
+                        return;
+                    }
 
                     const index = allowlist.findIndex(v => v.name === playerName);
 
@@ -61,7 +69,7 @@ export default function allowlist(contents: any, consoleCommand: boolean) {
                     break;
             }
         }
-    } catch (error) {
-        console.error(error);
+    } catch (error: any) {
+        Log.error(error.message);
     }
 }
